@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.3.min.js" type="text/javascript"></script>
+    <style>
+        .in_map {
+            width: 400px;
+            height: 400px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        $(function () {
+            var mapCanvas = $(".in_map");
+            var sMap = $(".s_map");
+            var xDown;
+            var yDown;
+            var xUp;
+            var yUp;
+            mapCanvas.on({
+                mousedown: function (e) {
+                    xDown = getX(e);
+                    yDown = getY(e);
+                    sMap.css({
+                        'left': xDown,
+                        'top': yDown
+                    });
+                },
+                mouseup: function (e) {
+                    xUp = getX(e);
+                    yUp = getY(e);
+                    sMap.css({
+                        'width': xUp - xDown,
+                        'height': yUp - yDown
+                    });
+                }
+            });
+            function getX(e) {
+                e = e || window.event;
+                return e.pageX || e.clientX + document.body.scrollLeft;
+            }
+
+            function getY(e) {
+                e = e || window.event;
+                return e.pageY || e.clientY + document.body.scrollTop;
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="in_map"></div>
+<div class="s_map" style="position:fixed;background-color: white;"></div>
+</body>
+</html>
